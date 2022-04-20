@@ -1,0 +1,54 @@
+.photoBlock {
+  width: 60%;
+  margin-bottom: 2vh;
+  border-radius: 15px;
+}
+
+.go4268192979 {
+  height: 30px;
+  width: 30px;
+}
+
+.go2484888251 {
+  height: 50px;
+  width: 50px;
+}
+
+.spacePhoto {
+  max-width: 100%;
+  display: inline-block;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.descriptionText {
+  border: 1px solid rgb(240, 238, 238);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 1vh 1.5vw 1vh 1.5vw;
+  background-color: white;
+}
+
+.dateAndTitle {
+  font-size: large;
+  font-weight: 500;
+}
+
+.explanation {
+  font-size: small;
+  padding-bottom: 1vh;
+}
+
+.likeButton {
+  padding: 1vh 0 1vh 0vw;
+}
+
+@media (max-width: 900px) {
+  .photoBlock {
+    width: 95vw;
+    padding-bottom: 1%;
+    margin-bottom: 2vh;
+  }
+}
