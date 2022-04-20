@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from "react-bootstrap";
+
 export default function PhotoBlock(props) {
   const {url, title, date, explanation } = props.photo
   return (
@@ -18,9 +20,9 @@ export default function PhotoBlock(props) {
           Explanation: {explanation}
         </div>
         <div className="likeButton">
-          {/* <Button onClick={likeButton} variant="outline-success">
-            {selectedPhoto.liked === true ? "Unlike" : "Like"}
-          </Button> */}
+          <Button variant="outline-success">
+            Like
+          </Button>
         </div>
       </div>
     </div>
