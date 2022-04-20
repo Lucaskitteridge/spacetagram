@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./Feed.css";
 import PhotoBlock from "./PhotoBlock";
 export default function Feed() {
   const [photosOfTheDay, setPhotosOfTheDay] = useState([]);
@@ -27,6 +28,14 @@ export default function Feed() {
 
   return (
     <div className="feed">
+      <div className="titleBar">
+        <div className="title">
+          <b>&#128640; Spacetagram &#128640;</b>
+        </div>
+        <div className="subTitle">
+          Brought to you through NASA's photo of the day API
+        </div>
+      </div>
       {photosOfTheDay.map((photo, index) => {
         return <PhotoBlock photo={photo} key={index} />;
       })}

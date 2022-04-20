@@ -1,0 +1,25 @@
+.feed {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.titleBar {
+  padding-top: 1vh;
+  width: 60vw;
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  padding-bottom: 2vh;
+}
+
+.title {
+  font-size: x-large;
+}
+
+@media (max-width: 900px) {
+  .titleBar {
+    width: 95vw;
+  }
+}
