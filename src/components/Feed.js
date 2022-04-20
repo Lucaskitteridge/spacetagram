@@ -25,8 +25,11 @@ export default function Feed() {
         }
       })
       .then((data) => {
-        setPhotosOfTheDay((prev) => [...prev, data.reverse()].flat())
-        console.log(photosOfTheDay)
+        if (photosOfTheDay.length > 0) {
+          setPhotosOfTheDay((prev) => [...prev, data.reverse()].flat());
+        } else {
+          setPhotosOfTheDay((prev) => [data.reverse()].flat());
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -39,10 +42,8 @@ export default function Feed() {
 
   const fetchMorePhotos = () => {
     setTimeout(() => {
-      if(photosOfTheDay.length > 0){
-        fetchNasaData(apiKey, startDate, endDate);
-      }
-    }, 1500)
+      fetchNasaData(apiKey, startDate, endDate);
+    }, 1500);
   };
 
   return (
@@ -59,7 +60,7 @@ export default function Feed() {
         dataLength={photosOfTheDay.length}
         hasMore={true}
         next={fetchMorePhotos}
-        loader={<div>Loading</div>}
+        loader={<div>Loading...</div>}
       >
         {photosOfTheDay.map((photo, index) => {
           return <PhotoBlock photo={photo} key={index} />;
