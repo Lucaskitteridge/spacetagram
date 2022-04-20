@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Feed.css";
-import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteScroll from "react-infinite-scroller";
 import PhotoBlock from "./PhotoBlock";
 export default function Feed() {
   const beginingDate = new Date();
-  beginingDate.setDate(beginingDate.getDate() - 10);
+  beginingDate.setDate(beginingDate.getDate() - 5);
   const apiKey = process.env.REACT_APP_API_KEY || "DEMO_KEY";
   const [photosOfTheDay, setPhotosOfTheDay] = useState([]);
   const [startDate, setStartDate] = useState(beginingDate);
@@ -26,9 +26,10 @@ export default function Feed() {
       })
       .then((data) => {
         if (photosOfTheDay.length > 0) {
-          setPhotosOfTheDay((prev) => [...prev, data.reverse()].flat());
+          let newData = data.reverse()
+          setPhotosOfTheDay((prev) => [...prev, newData].flat());
         } else {
-          setPhotosOfTheDay((prev) => [data.reverse()].flat());
+          setPhotosOfTheDay(data.reverse());
         }
       })
       .catch((err) => {
@@ -41,6 +42,7 @@ export default function Feed() {
   }, []);
 
   const fetchMorePhotos = () => {
+
     setTimeout(() => {
       fetchNasaData(apiKey, startDate, endDate);
     }, 1500);
@@ -57,9 +59,10 @@ export default function Feed() {
         </div>
       </div>
       <InfiniteScroll
-        dataLength={photosOfTheDay.length}
+        className="scrollableFeed"
+        pagestart={0}
         hasMore={true}
-        next={fetchMorePhotos}
+        loadMore={fetchMorePhotos}
         loader={<div>Loading...</div>}
       >
         {photosOfTheDay.map((photo, index) => {
