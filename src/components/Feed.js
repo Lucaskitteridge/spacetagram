@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Feed.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 import PhotoBlock from "./PhotoBlock";
 export default function Feed() {
   const beginingDate = new Date();
@@ -14,9 +15,7 @@ export default function Feed() {
     fetch(
       `https://api.nasa.gov/planetary/apod?start_date=${start
         .toJSON()
-        .slice(0, 10)}&end_date=${end
-        .toJSON()
-        .slice(0, 10)}&api_key=${nasaKey}`
+        .slice(0, 10)}&end_date=${end.toJSON().slice(0, 10)}&api_key=${nasaKey}`
     )
       .then((response) => {
         if (response.ok) {
@@ -25,7 +24,10 @@ export default function Feed() {
           console.log(response);
         }
       })
-      .then((data) => setPhotosOfTheDay(data))
+      .then((data) => {
+        setPhotosOfTheDay((prev) => [...prev, data.reverse()].flat())
+        console.log(photosOfTheDay)
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -34,6 +36,14 @@ export default function Feed() {
   useEffect(() => {
     fetchNasaData(apiKey, startDate, endDate);
   }, []);
+
+  const fetchMorePhotos = () => {
+    setTimeout(() => {
+      if(photosOfTheDay.length > 0){
+        fetchNasaData(apiKey, startDate, endDate);
+      }
+    }, 1500)
+  };
 
   return (
     <div className="feed">
@@ -45,9 +55,16 @@ export default function Feed() {
           Brought to you through NASA's photo of the day API
         </div>
       </div>
-      {photosOfTheDay.map((photo, index) => {
-        return <PhotoBlock photo={photo} key={index} />;
-      })}
+      <InfiniteScroll
+        dataLength={photosOfTheDay.length}
+        hasMore={true}
+        next={fetchMorePhotos}
+        loader={<div>Loading</div>}
+      >
+        {photosOfTheDay.map((photo, index) => {
+          return <PhotoBlock photo={photo} key={index} />;
+        })}
+      </InfiniteScroll>
     </div>
   );
 }
