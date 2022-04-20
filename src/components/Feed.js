@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PhotoBlock from "./PhotoBlock";
 export default function Feed() {
   const [photosOfTheDay, setPhotosOfTheDay] = useState([]);
   const apiKey = process.env.REACT_APP_API_KEY || "DEMO_KEY";
@@ -10,10 +11,10 @@ export default function Feed() {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response)
+          console.log(response);
         }
       })
-      .then((data) => setPhotosOfTheDay(data))
+      .then((data) => setPhotosOfTheDay([data]))
       .catch((err) => {
         console.log(err);
       });
@@ -21,8 +22,14 @@ export default function Feed() {
 
   useEffect(() => {
     fetchNasaData(apiKey);
-    console.log(photosOfTheDay)
+    console.log(photosOfTheDay);
   }, []);
 
-  return <div className="feed"></div>;
+  return (
+    <div className="feed">
+      {photosOfTheDay.map((photo, index) => {
+        return <PhotoBlock photo={photo} key={index} />;
+      })}
+    </div>
+  );
 }
