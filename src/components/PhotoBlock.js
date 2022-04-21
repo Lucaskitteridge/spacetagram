@@ -1,9 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import "./PhotoBlock.css";
 
 export default function PhotoBlock({ photo }) {
   const { url, title, date, explanation } = photo;
+  const [like, setLike] = useState(false)
+
+  const onLike = function() {
+    setLike(!like)
+  }
+
   return (
     <div className="photoBlock">
       <div>
@@ -13,10 +19,10 @@ export default function PhotoBlock({ photo }) {
         <div className="dateAndTitle">
           {title} - {date}
         </div>
-        <div className="explanation">Explanation: {explanation}</div>
+        <div className="explanation">{explanation}</div>
         <div className="likeButton">
-          <Button variant="outline-success">
-            Like
+          <Button variant="outline-success" onClick={onLike}>
+            {like ? 'Unlike' : "Like"}
           </Button>
         </div>
       </div>
