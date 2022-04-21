@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./Feed.css";
 import InfiniteScroll from "react-infinite-scroller";
+import moment from 'moment'
 import PhotoBlock from "./PhotoBlock";
 export default function Feed() {
-  const beginingDate = new Date();
-  beginingDate.setDate(beginingDate.getDate() - 5);
   const apiKey = process.env.REACT_APP_API_KEY || "DEMO_KEY";
   const [photosOfTheDay, setPhotosOfTheDay] = useState([]);
-  const [startDate, setStartDate] = useState(beginingDate);
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(moment().subtract(5, 'days').format().slice(0, 10));
+  const [endDate, setEndDate] = useState(moment().format().slice(0, 10));
 
   //Fetch data from Nasa Api
   const fetchNasaData = (nasaKey, start, end) => {
     fetch(
       `https://api.nasa.gov/planetary/apod?start_date=${start
-        .toJSON()
-        .slice(0, 10)}&end_date=${end.toJSON().slice(0, 10)}&api_key=${nasaKey}`
+        }&end_date=${end}&api_key=${nasaKey}`
     )
       .then((response) => {
         if (response.ok) {
@@ -42,8 +40,10 @@ export default function Feed() {
   }, []);
 
   const fetchMorePhotos = () => {
-
+    console.log('here')
     setTimeout(() => {
+      setStartDate(moment(startDate).subtract(6, 'days').format().slice(0, 10))
+      setEndDate(moment(endDate).subtract(6, 'days').format().slice(0, 10))
       fetchNasaData(apiKey, startDate, endDate);
     }, 1500);
   };
@@ -63,6 +63,7 @@ export default function Feed() {
         pagestart={0}
         hasMore={true}
         loadMore={fetchMorePhotos}
+        initialLoad={false}
         loader={<div>Loading...</div>}
       >
         {photosOfTheDay.map((photo, index) => {
