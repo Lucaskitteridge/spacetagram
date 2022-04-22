@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import "./Feed.css";
 import InfiniteScroll from "react-infinite-scroller";
-import moment from "moment";
 import PhotoBlock from "./PhotoBlock";
 export default function Feed() {
   const apiKey = process.env.REACT_APP_API_KEY || "DEMO_KEY";
   const [photosOfTheDay, setPhotosOfTheDay] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [startDate, setStartDate] = useState(
     moment().subtract(5, "days").format().slice(0, 10)
   );
@@ -34,6 +35,7 @@ export default function Feed() {
         let newEnd = moment(endDate).subtract(6, "days").format().slice(0, 10);
         setStartDate(newStart);
         setEndDate(newEnd);
+        setLoading(false)
       })
       .catch((err) => {
         console.log(err);
@@ -41,10 +43,13 @@ export default function Feed() {
   };
 
   useEffect(() => {
-    fetchNasaData(apiKey, startDate, endDate);
+    setTimeout(() => {
+      fetchNasaData(apiKey, startDate, endDate);
+    }, 1500);
   }, []);
 
   const fetchMorePhotos = () => {
+    setLoading(true)
     setTimeout(() => {
       fetchNasaData(apiKey, startDate, endDate);
     }, 1500);
@@ -62,11 +67,10 @@ export default function Feed() {
       </div>
       <InfiniteScroll
         className="scrollableFeed"
-        pagestart={0}
         hasMore={true}
         loadMore={fetchMorePhotos}
         initialLoad={false}
-        loader={<div>Loading...</div>}
+        loader={<div>&#128640;&#128640;&#128640;&#128640;&#128640;&#128640;&#128640;</div>}
       >
         {photosOfTheDay.map((photo, index) => {
           return <PhotoBlock photo={photo} key={index} />;
