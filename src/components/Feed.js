@@ -14,6 +14,7 @@ export default function Feed() {
 
   //Fetch data from Nasa Api
   const fetchNasaData = (nasaKey, start, end) => {
+    console.log("called");
     fetch(
       `https://api.nasa.gov/planetary/apod?start_date=${start}&end_date=${end}&api_key=${nasaKey}`
     )
@@ -31,11 +32,13 @@ export default function Feed() {
         } else {
           setPhotosOfTheDay(data.reverse());
         }
-        let newStart = moment(startDate).subtract(6, "days").format().slice(0, 10);
+        let newStart = moment(startDate)
+          .subtract(6, "days")
+          .format()
+          .slice(0, 10);
         let newEnd = moment(endDate).subtract(6, "days").format().slice(0, 10);
         setStartDate(newStart);
         setEndDate(newEnd);
-        setLoading(false)
       })
       .catch((err) => {
         console.log(err);
@@ -49,10 +52,7 @@ export default function Feed() {
   }, []);
 
   const fetchMorePhotos = () => {
-    setLoading(true)
-    setTimeout(() => {
-      fetchNasaData(apiKey, startDate, endDate);
-    }, 1500);
+    fetchNasaData(apiKey, startDate, endDate);
   };
 
   return (
@@ -67,10 +67,11 @@ export default function Feed() {
       </div>
       <InfiniteScroll
         className="scrollableFeed"
+        pageStart={0}
         hasMore={true}
         loadMore={fetchMorePhotos}
         initialLoad={false}
-        loader={<div>&#128640;&#128640;&#128640;&#128640;&#128640;&#128640;&#128640;</div>}
+        loader={<div>Loading</div>}
       >
         {photosOfTheDay.map((photo, index) => {
           return <PhotoBlock photo={photo} key={index} />;
