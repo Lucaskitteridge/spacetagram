@@ -14,8 +14,8 @@ export default function Feed() {
   );
   const [endDate, setEndDate] = useState(moment().format().slice(0, 10));
 
-  //Get only the previous favs feature?
-  //Maybe sort the photos option?
+  //Make a navbar with title and favourites button
+  //Toggle the description option. tried already but formatting was off
 
   //Fetch data from Nasa Api
   const fetchNasaData = (nasaKey, start, end) => {
@@ -110,11 +110,13 @@ export default function Feed() {
       <Button onClick={getFaves}>View my Fav's</Button>
       {favs && (
         <div className="totalFeed">
-          {photosOfTheDay.sort(function(a, b){
-            return new Date(b.date) - new Date(a.date)
-          }).map((photo, index) => {
-            return <PhotoBlock photo={photo} key={index} />;
-          })}
+          {photosOfTheDay
+            .sort(function (a, b) {
+              return new Date(b.date) - new Date(a.date);
+            })
+            .map((photo, index) => {
+              return <PhotoBlock photo={photo} key={index} />;
+            })}
         </div>
       )}
       {!favs && (

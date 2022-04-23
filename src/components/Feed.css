@@ -7,10 +7,9 @@
   width: 100%;
 }
 
-.totalFeed{
-  width: 60%
+.totalFeed {
+  width: 60%;
 }
-
 
 .scrollableFeed {
   display: flex;
