@@ -15,10 +15,10 @@ export default function Feed() {
   const [endDate, setEndDate] = useState(moment().format().slice(0, 10));
 
   //Get only the previous favs feature?
+  //Maybe sort the photos option?
 
   //Fetch data from Nasa Api
   const fetchNasaData = (nasaKey, start, end) => {
-    console.log(start, end);
     fetch(
       `https://api.nasa.gov/planetary/apod?start_date=${start}&end_date=${end}&api_key=${nasaKey}`
     )
@@ -110,7 +110,9 @@ export default function Feed() {
       <Button onClick={getFaves}>View my Fav's</Button>
       {favs && (
         <div className="totalFeed">
-          {photosOfTheDay.map((photo, index) => {
+          {photosOfTheDay.sort(function(a, b){
+            return new Date(b.date) - new Date(a.date)
+          }).map((photo, index) => {
             return <PhotoBlock photo={photo} key={index} />;
           })}
         </div>
