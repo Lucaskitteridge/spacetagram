@@ -1,21 +1,11 @@
 .photoBlock {
-  width: 60%;
+  width: 100%;
   margin-bottom: 2vh;
   border-radius: 15px;
 }
 
-.go4268192979 {
-  height: 30px;
-  width: 30px;
-}
-
-.go2484888251 {
-  height: 50px;
-  width: 50px;
-}
-
 .spacePhoto {
-  max-width: 100%;
+  width: 60vw;
   display: inline-block;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
@@ -27,7 +17,7 @@
   border: 1px solid rgb(240, 238, 238);
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  padding: 1vh 1.5vw 1vh 1.5vw;
+  padding: 1% 1.5% 1% 1.5%;
   background-color: white;
 }
 
@@ -38,17 +28,17 @@
 
 .explanation {
   font-size: small;
-  padding-bottom: 1vh;
+  padding-bottom: 1%;
 }
 
 .likeButton {
-  padding: 1vh 0 1vh 0vw;
+  padding: 1% 0 1% 0;
 }
 
 @media (max-width: 900px) {
   .photoBlock {
-    width: 95vw;
+    width: 95%;
     padding-bottom: 1%;
-    margin-bottom: 2vh;
+    margin-bottom: 2%;
   }
 }

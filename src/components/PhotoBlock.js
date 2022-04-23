@@ -7,6 +7,8 @@ export default function PhotoBlock({ photo }) {
   const [selectedPhoto, setSelectedPhoto] = useState(photo);
   let likedInStorage = localStorage.getItem(selectedPhoto.date);
 
+  //Work on toggle explanation if time
+
   //Uses likes in local storage to tell if the photo is previously liked
   useEffect(() => {
     if (likedInStorage === "false") {
@@ -46,23 +48,24 @@ export default function PhotoBlock({ photo }) {
       localStorage.setItem(selectedPhoto.date, false);
     }
   };
-  
 
   return (
     <div className="photoBlock">
-      <div>
+      <div className="photoContainer">
         <img src={url} alt={title} className="spacePhoto" />
       </div>
       <div className="descriptionText">
         <div className="dateAndTitle">
           {title} - {date}
         </div>
-        <div className="explanation">{explanation}</div>
-        <div className="likeButton">
-          <Button variant="outline-success" onClick={onLike}>
-            {selectedPhoto.liked ? 'Like' : "Unlike"}
-          </Button>
-        </div>
+          <div>
+            <div className="explanation">{explanation}</div>
+            <div className="likeButton">
+              <Button variant="outline-success" onClick={onLike}>
+                {selectedPhoto.liked ? "UnLike" : "Like"}
+              </Button>
+            </div>
+          </div>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 import moment from "moment";
 import "./Feed.css";
 import InfiniteScroll from "react-infinite-scroller";
@@ -6,15 +7,18 @@ import PhotoBlock from "./PhotoBlock";
 export default function Feed() {
   const apiKey = process.env.REACT_APP_API_KEY || "DEMO_KEY";
   const [photosOfTheDay, setPhotosOfTheDay] = useState([]);
+  const [favs, setFavs] = useState(false);
   const [loading, setLoading] = useState(true);
   const [startDate, setStartDate] = useState(
     moment().subtract(5, "days").format().slice(0, 10)
   );
   const [endDate, setEndDate] = useState(moment().format().slice(0, 10));
 
+  //Get only the previous favs feature?
+
   //Fetch data from Nasa Api
   const fetchNasaData = (nasaKey, start, end) => {
-    console.log("called");
+    console.log(start, end);
     fetch(
       `https://api.nasa.gov/planetary/apod?start_date=${start}&end_date=${end}&api_key=${nasaKey}`
     )
@@ -45,6 +49,23 @@ export default function Feed() {
       });
   };
 
+  const fetchNasaFaves = (nasaKey, date) => {
+    fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${nasaKey}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log(response);
+        }
+      })
+      .then((data) => {
+        setPhotosOfTheDay((prev) => [...prev, data].flat());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     setTimeout(() => {
       fetchNasaData(apiKey, startDate, endDate);
@@ -53,6 +74,27 @@ export default function Feed() {
 
   const fetchMorePhotos = () => {
     fetchNasaData(apiKey, startDate, endDate);
+  };
+
+  const getFaves = () => {
+    if (!favs) {
+      setFavs(!favs);
+      setPhotosOfTheDay([]);
+      const local = { ...localStorage };
+      for (const [key, value] of Object.entries(local)) {
+        if (value === "true") {
+          fetchNasaFaves(apiKey, key);
+        }
+      }
+    } else {
+      let newStart = moment().subtract(5, "days").format().slice(0, 10);
+      let newEnd = moment().format().slice(0, 10);
+      setStartDate(newStart);
+      setEndDate(newEnd);
+      setPhotosOfTheDay([]);
+      fetchNasaData(apiKey, newStart, newEnd);
+      setFavs(!favs);
+    }
   };
 
   return (
@@ -65,18 +107,30 @@ export default function Feed() {
           Brought to you through NASA's photo of the day API
         </div>
       </div>
-      <InfiniteScroll
-        className="scrollableFeed"
-        pageStart={0}
-        hasMore={true}
-        loadMore={fetchMorePhotos}
-        initialLoad={false}
-        loader={<div>Loading</div>}
-      >
-        {photosOfTheDay.map((photo, index) => {
-          return <PhotoBlock photo={photo} key={index} />;
-        })}
-      </InfiniteScroll>
+      <Button onClick={getFaves}>View my Fav's</Button>
+      {favs && (
+        <div className="totalFeed">
+          {photosOfTheDay.map((photo, index) => {
+            return <PhotoBlock photo={photo} key={index} />;
+          })}
+        </div>
+      )}
+      {!favs && (
+        <InfiniteScroll
+          className="scrollableFeed"
+          pageStart={0}
+          hasMore={favs ? false : true}
+          loadMore={fetchMorePhotos}
+          initialLoad={false}
+          loader={<div>Loading</div>}
+        >
+          <div className="totalFeed">
+            {photosOfTheDay.map((photo, index) => {
+              return <PhotoBlock photo={photo} key={index} />;
+            })}
+          </div>
+        </InfiniteScroll>
+      )}
     </div>
   );
 }

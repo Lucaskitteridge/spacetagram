@@ -4,7 +4,13 @@
   flex-direction: column;
   overflow-y: scroll;
   height: 100%;
+  width: 100%;
 }
+
+.totalFeed{
+  width: 60%
+}
+
 
 .scrollableFeed {
   display: flex;
@@ -14,7 +20,7 @@
 
 .titleBar {
   padding-top: 1vh;
-  width: 60vw;
+  width: 60%;
   display: flex;
   align-items: left;
   flex-direction: column;
@@ -33,6 +39,6 @@
 
 @media (max-width: 900px) {
   .titleBar {
-    width: 95vw;
+    width: 95%;
   }
 }
