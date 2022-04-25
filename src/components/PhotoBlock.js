@@ -30,24 +30,28 @@ export default function PhotoBlock({ photo, favs }) {
 
   //Sets local storage for likes
   const onLike = () => {
-    if (!selectedPhoto.liked) {
-      setSelectedPhoto((prevPhoto) => {
-        return {
-          ...prevPhoto,
-          liked: true,
-        };
-      });
-      localStorage.setItem(selectedPhoto.date, true);
-    } else {
-      setSelectedPhoto((prevPhoto) => {
-        return {
-          ...prevPhoto,
-          liked: false,
-        };
-      });
-      localStorage.setItem(selectedPhoto.date, false);
-    }
+    setTimeout(() => {
+      if (!selectedPhoto.liked) {
+        setSelectedPhoto((prevPhoto) => {
+          return {
+            ...prevPhoto,
+            liked: true,
+          };
+        });
+        localStorage.setItem(selectedPhoto.date, true);
+      } else {
+        setSelectedPhoto((prevPhoto) => {
+          return {
+            ...prevPhoto,
+            liked: false,
+          };
+        });
+        localStorage.setItem(selectedPhoto.date, false);
+      }
+    }, 300);
   };
+
+  const onHover = () => {};
 
   return (
     <div className="photoBlock">
@@ -56,15 +60,26 @@ export default function PhotoBlock({ photo, favs }) {
       </div>
       <div className="descriptionText">
         <div className="dateAndTitle">
-          {title} - {date}
+          <div className="dateAndTitle">
+            {title} - <div className="date">&nbsp;{date}</div>
+          </div>
+          <div className="likeButton">
+            <Button variant="outline" size="lg" onClick={onLike}>
+              {selectedPhoto.liked ? (
+                <span
+                  className="material-symbols-outlined clicked "
+                  onMouseEnter
+                >
+                  favorite
+                </span>
+              ) : (
+                <span className="material-symbols-outlined">favorite</span>
+              )}
+            </Button>
+          </div>
         </div>
         <div>
           <div className="explanation">{explanation}</div>
-          <div className="likeButton">
-            <Button variant="outline-success" onClick={onLike}>
-              {selectedPhoto.liked ? "UnLike" : "Like"}
-            </Button>
-          </div>
         </div>
       </div>
     </div>

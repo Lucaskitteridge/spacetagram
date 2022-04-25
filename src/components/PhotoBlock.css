@@ -14,25 +14,57 @@
 }
 
 .descriptionText {
-  border: 1px solid rgb(240, 238, 238);
+  border: 1px solid rgb(231, 230, 230);
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   padding: 1% 1.5% 1% 1.5%;
-  background-color: white;
+  background-color: rgb(231, 230, 230);
 }
 
 .dateAndTitle {
   font-size: large;
+  font-family: "Space Grotesk", sans-serif;
   font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .explanation {
   font-size: small;
   padding-bottom: 1%;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 400;
+}
+
+.date {
+  font-size: smaller;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+}
+
+.material-symbols-outlined:hover {
+  color: rgb(211, 23, 23);
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+}
+
+.clicked {
+  color: rgb(211, 23, 23);
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+}
+.clicked:hover {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 
 .likeButton {
   padding: 1% 0 1% 0;
+}
+
+.btn {
+  border: 0;
+  box-shadow: 0;
 }
 
 @media (max-width: 900px) {

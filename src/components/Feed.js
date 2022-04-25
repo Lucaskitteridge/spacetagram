@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import moment from "moment";
-import "./Feed.css";
+import React from "react";
 import useStateHelpers from "../helpers/stateHelpers";
 import InfiniteScroll from "react-infinite-scroller";
 import PhotoBlock from "./PhotoBlock";
 import Navigation from "./Navigation";
+import "./Feed.css";
 export default function Feed() {
   const { getFaves, photosOfTheDay, favs, fetchMorePhotos } = useStateHelpers();
 
   return (
     <>
-      <Navigation getFaves={getFaves} />
+      <Navigation getFaves={getFaves} favs={favs} />
       <div className="feed">
         {favs && (
           <div className="totalFeed">

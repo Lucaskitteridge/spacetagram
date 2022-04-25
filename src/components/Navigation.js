@@ -1,16 +1,17 @@
 import React from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
-import useStateHelpers from "../helpers/stateHelpers";
+import "./Navigation.css";
 
-export default function Navigation({getFaves}) {
-  
+export default function Navigation({ getFaves, favs }) {
   return (
-    <Navbar>
+    <Navbar sticky="top">
       <Container>
-        <Navbar.Brand>&#128640; Spacetagram &#128640;</Navbar.Brand>
+        <Navbar.Brand className="appTitle">&#128640; Spacetagram</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-            <Button variant="danger" onClick={getFaves}>View My Likes</Button>
+          <Button variant="danger" onClick={getFaves}>
+            {!favs? "View My Likes" : "View Feed"}
+          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
