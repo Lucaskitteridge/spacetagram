@@ -5,10 +5,17 @@ export default function useStateHelpers() {
   const apiKey = process.env.REACT_APP_API_KEY || "DEMO_KEY";
   const [photosOfTheDay, setPhotosOfTheDay] = useState([]);
   const [favs, setFavs] = useState(false);
+  const [endDate, setEndDate] = useState(moment().format().slice(0, 10));
   const [startDate, setStartDate] = useState(
     moment().subtract(5, "days").format().slice(0, 10)
   );
-  const [endDate, setEndDate] = useState(moment().format().slice(0, 10));
+
+  //Get request to fetch appointments for each day
+  useEffect(() => {
+    setTimeout(() => {
+      fetchNasaData(apiKey, startDate, endDate);
+    }, 1500);
+  }, []);
 
   //Fetch data from Nasa Api
   const fetchNasaData = (nasaKey, start, end) => {
@@ -42,6 +49,10 @@ export default function useStateHelpers() {
       });
   };
 
+  const fetchMorePhotos = () => {
+    fetchNasaData(apiKey, startDate, endDate);
+  };
+
   const fetchNasaFaves = (nasaKey, date) => {
     fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${nasaKey}`)
       .then((response) => {
@@ -58,38 +69,27 @@ export default function useStateHelpers() {
         console.log(err);
       });
   };
-
-  const fetchMorePhotos = () => {
-    fetchNasaData(apiKey, startDate, endDate);
-  };
-
+  //2 states, 1 setState, 1 callback
   const getFaves = () => {
     if (!favs) {
       setFavs(!favs);
-      setPhotosOfTheDay([]);
       const local = { ...localStorage };
-      for (const [key, value] of Object.entries(local)) {
-        if (value === "true") {
-          fetchNasaFaves(apiKey, key);
+      setPhotosOfTheDay([]);
+      for (const [date, liked] of Object.entries(local)) {
+        if (liked === "true") {
+          fetchNasaFaves(apiKey, date);
         }
       }
     } else {
+      setPhotosOfTheDay([]);
       let newStart = moment().subtract(5, "days").format().slice(0, 10);
       let newEnd = moment().format().slice(0, 10);
       setStartDate(newStart);
       setEndDate(newEnd);
-      setPhotosOfTheDay([]);
       fetchNasaData(apiKey, newStart, newEnd);
       setFavs(!favs);
     }
   };
-
-  //Get request to fetch appointments for each day
-  useEffect(() => {
-    setTimeout(() => {
-      fetchNasaData(apiKey, startDate, endDate);
-    }, 1500);
-  }, []);
 
   return {
     photosOfTheDay,
