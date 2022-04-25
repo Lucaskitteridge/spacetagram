@@ -99,14 +99,6 @@ export default function Feed() {
 
   return (
     <div className="feed">
-      <div className="titleBar">
-        <div className="title">
-          <b>&#128640; Spacetagram &#128640;</b>
-        </div>
-        <div className="subTitle">
-          Brought to you through NASA's photo of the day API
-        </div>
-      </div>
       <Button onClick={getFaves}>View my Fav's</Button>
       {favs && (
         <div className="totalFeed">
