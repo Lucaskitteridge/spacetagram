@@ -7,8 +7,6 @@ export default function PhotoBlock({ photo, favs }) {
   const [selectedPhoto, setSelectedPhoto] = useState(photo);
   let likedInStorage = localStorage.getItem(selectedPhoto.date);
 
-  //Work on toggle explanation if time
-
   //Uses likes in local storage to tell if the photo is previously liked
   useEffect(() => {
     if (likedInStorage === "false") {
@@ -30,25 +28,23 @@ export default function PhotoBlock({ photo, favs }) {
 
   //Sets local storage for likes
   const onLike = () => {
-    setTimeout(() => {
-      if (!selectedPhoto.liked) {
-        setSelectedPhoto((prevPhoto) => {
-          return {
-            ...prevPhoto,
-            liked: true,
-          };
-        });
-        localStorage.setItem(selectedPhoto.date, true);
-      } else {
-        setSelectedPhoto((prevPhoto) => {
-          return {
-            ...prevPhoto,
-            liked: false,
-          };
-        });
-        localStorage.setItem(selectedPhoto.date, false);
-      }
-    }, 300);
+    if (!selectedPhoto.liked) {
+      setSelectedPhoto((prevPhoto) => {
+        return {
+          ...prevPhoto,
+          liked: true,
+        };
+      });
+      localStorage.setItem(selectedPhoto.date, true);
+    } else {
+      setSelectedPhoto((prevPhoto) => {
+        return {
+          ...prevPhoto,
+          liked: false,
+        };
+      });
+      localStorage.setItem(selectedPhoto.date, false);
+    }
   };
 
   return (
@@ -62,12 +58,9 @@ export default function PhotoBlock({ photo, favs }) {
             {title} - <div className="date">&nbsp;{date}</div>
           </div>
           <div className="likeButton">
-            <Button variant="outline" size="lg" onClick={onLike}>
+            <Button className="outline" variant="outline" size="lg" onClick={onLike}>
               {selectedPhoto.liked ? (
-                <span
-                  className="material-symbols-outlined clicked "
-                  onMouseEnter
-                >
+                <span className="material-symbols-outlined clicked ">
                   favorite
                 </span>
               ) : (

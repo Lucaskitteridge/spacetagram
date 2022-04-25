@@ -7,6 +7,8 @@ import "./Feed.css";
 export default function Feed() {
   const { getFaves, photosOfTheDay, favs, fetchMorePhotos } = useStateHelpers();
 
+  //add calander componenent and toggle description up and down
+
   return (
     <>
       <Navigation getFaves={getFaves} favs={favs} />
@@ -29,7 +31,7 @@ export default function Feed() {
             hasMore={favs ? false : true}
             loadMore={fetchMorePhotos}
             initialLoad={false}
-            loader={<div>Loading</div>}
+            loader={<div className="loading">Loading...</div>}
           >
             <div className="totalFeed">
               {photosOfTheDay.map((photo, index) => {

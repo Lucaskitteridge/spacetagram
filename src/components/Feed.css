@@ -36,6 +36,12 @@
   font-size: x-large;
 }
 
+.loading {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 400;
+  padding-bottom: 2%;
+}
+
 @media (max-width: 900px) {
   .titleBar {
     width: 95%;
