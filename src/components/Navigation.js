@@ -10,7 +10,7 @@ export default function Navigation({ getFaves, favs }) {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Button variant="danger" onClick={getFaves}>
-            {!favs? "View My Likes" : "View Feed"}
+            {!favs ? "View My Likes" : "View Feed"}
           </Button>
         </Navbar.Collapse>
       </Container>

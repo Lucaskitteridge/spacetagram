@@ -58,7 +58,12 @@ export default function PhotoBlock({ photo, favs }) {
             {title} - <div className="date">&nbsp;{date}</div>
           </div>
           <div className="likeButton">
-            <Button className="outline" variant="outline" size="lg" onClick={onLike}>
+            <Button
+              className="outline"
+              variant="outline"
+              size="lg"
+              onClick={onLike}
+            >
               {selectedPhoto.liked ? (
                 <span className="material-symbols-outlined clicked ">
                   favorite
