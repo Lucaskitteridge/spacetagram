@@ -51,8 +51,6 @@ export default function PhotoBlock({ photo, favs }) {
     }, 300);
   };
 
-  const onHover = () => {};
-
   return (
     <div className="photoBlock">
       <div className="photoContainer">

@@ -40,4 +40,8 @@
   .titleBar {
     width: 95%;
   }
+
+  .totalFeed {
+    width: 95vw
+  }
 }
