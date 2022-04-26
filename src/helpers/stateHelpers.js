@@ -6,6 +6,7 @@ export default function useStateHelpers() {
   const [photosOfTheDay, setPhotosOfTheDay] = useState([]);
   const [favs, setFavs] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showTopBtn, setShowTopBtn] = useState(false);
   const [endDate, setEndDate] = useState(moment().format().slice(0, 10));
   const [startDate, setStartDate] = useState(
     moment().subtract(5, "days").format().slice(0, 10)
@@ -107,5 +108,7 @@ export default function useStateHelpers() {
     getFaves,
     fetchMorePhotos,
     loading,
+    showTopBtn,
+    setShowTopBtn,
   };
 }

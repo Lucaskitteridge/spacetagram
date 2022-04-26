@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FaAngleUp } from "react-icons/fa";
+import useStateHelpers from "../helpers/stateHelpers";
 import "./ScrollButton.css";
 
-const ScrollButton = () => {
-  const [showTopBtn, setShowTopBtn] = useState(false);
+export default function ScrollButton() {
+  const { showTopBtn, setShowTopBtn } = useStateHelpers();
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 400) {
@@ -13,12 +15,14 @@ const ScrollButton = () => {
       }
     });
   }, []);
+
   const goToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
+
   return (
     <div className="top-to-btm">
       {showTopBtn && (
@@ -26,5 +30,4 @@ const ScrollButton = () => {
       )}
     </div>
   );
-};
-export default ScrollButton;
+}

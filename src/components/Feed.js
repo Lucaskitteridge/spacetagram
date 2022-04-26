@@ -7,7 +7,13 @@ import ScrollButton from "./ScrollButton";
 import { InfinitySpin } from "react-loader-spinner";
 import "./Feed.css";
 export default function Feed() {
-  const { getFaves, photosOfTheDay, favs, fetchMorePhotos, loading } = useStateHelpers();
+  const {
+    getFaves,
+    photosOfTheDay,
+    favs,
+    fetchMorePhotos,
+    loading,
+  } = useStateHelpers();
 
   //add calander componenent and toggle description up and down, loading
 
