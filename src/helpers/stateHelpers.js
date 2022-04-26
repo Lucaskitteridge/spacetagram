@@ -5,6 +5,7 @@ export default function useStateHelpers() {
   const apiKey = process.env.REACT_APP_API_KEY || "DEMO_KEY";
   const [photosOfTheDay, setPhotosOfTheDay] = useState([]);
   const [favs, setFavs] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [endDate, setEndDate] = useState(moment().format().slice(0, 10));
   const [startDate, setStartDate] = useState(
     moment().subtract(5, "days").format().slice(0, 10)
@@ -43,6 +44,7 @@ export default function useStateHelpers() {
         let newEnd = moment(endDate).subtract(6, "days").format().slice(0, 10);
         setStartDate(newStart);
         setEndDate(newEnd);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -71,17 +73,20 @@ export default function useStateHelpers() {
   };
   //2 states, 1 setState, 1 callback
   const getFaves = () => {
+    setPhotosOfTheDay([]);
+
     if (!favs) {
-      setFavs(!favs);
-      const local = { ...localStorage };
-      setPhotosOfTheDay([]);
-      for (const [date, liked] of Object.entries(local)) {
-        if (liked === "true") {
-          fetchNasaFaves(apiKey, date);
+      setTimeout(() => {
+        setFavs(!favs);
+        const local = { ...localStorage };
+        setPhotosOfTheDay([]);
+        for (const [date, liked] of Object.entries(local)) {
+          if (liked === "true") {
+            fetchNasaFaves(apiKey, date);
+          }
         }
-      }
+      }, 1500);
     } else {
-      setPhotosOfTheDay([]);
       let newStart = moment().subtract(5, "days").format().slice(0, 10);
       let newEnd = moment().format().slice(0, 10);
       setStartDate(newStart);
@@ -100,6 +105,7 @@ export default function useStateHelpers() {
     startDate,
     setStartDate,
     getFaves,
-    fetchMorePhotos
+    fetchMorePhotos,
+    loading,
   };
 }

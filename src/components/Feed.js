@@ -1,19 +1,21 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import useStateHelpers from "../helpers/stateHelpers";
 import InfiniteScroll from "react-infinite-scroller";
 import PhotoBlock from "./PhotoBlock";
 import Navigation from "./Navigation";
-import ScrollButton from "./ScrollButton"
+import ScrollButton from "./ScrollButton";
+import { InfinitySpin } from "react-loader-spinner";
 import "./Feed.css";
 export default function Feed() {
-  const { getFaves, photosOfTheDay, favs, fetchMorePhotos } = useStateHelpers();
+  const { getFaves, photosOfTheDay, favs, fetchMorePhotos, loading } = useStateHelpers();
 
-  //add calander componenent and toggle description up and down, button to scroll to top
+  //add calander componenent and toggle description up and down, loading
 
   return (
     <>
-    <ScrollButton />
+      <ScrollButton />
       <Navigation getFaves={getFaves} favs={favs} />
+      {loading && <InfinitySpin color="red" />}
       <div className="feed">
         {favs && (
           <div className="totalFeed">
@@ -33,7 +35,7 @@ export default function Feed() {
             hasMore={favs ? false : true}
             loadMore={fetchMorePhotos}
             initialLoad={false}
-            loader={<div className="loading">Loading...</div>}
+            loader={<InfinitySpin color="red" />}
           >
             <div className="totalFeed">
               {photosOfTheDay.map((photo, index) => {
