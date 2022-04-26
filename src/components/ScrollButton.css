@@ -2,14 +2,14 @@
   position: relative;
 }
 
-.icon-position {
+.icon-pos {
   position: fixed;
   bottom: 40px;
   right: 25px;
   z-index: 20;
 }
 
-.icon-style {
+.icon-sty {
   background-color: rgb(211, 23, 23);
   border: 2px solid #fff;
   border-radius: 50%;
@@ -20,7 +20,7 @@
   transition: all ease-in-out;
 }
 
-.icon-style:hover {
+.icon-sty:hover {
   animation: none;
   background: #fff;
   color: rgb(211, 23, 23);

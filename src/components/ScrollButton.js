@@ -26,7 +26,7 @@ export default function ScrollButton() {
   return (
     <div className="top-to-btm">
       {showTopBtn && (
-        <FaAngleUp className="icon-position icon-style" onClick={goToTop} />
+        <FaAngleUp className="icon-pos icon-sty" onClick={goToTop} />
       )}
     </div>
   );
