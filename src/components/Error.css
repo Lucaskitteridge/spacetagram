@@ -1,0 +1,16 @@
+.errorTitle {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: x-large;
+}
+
+.errorSubTitle {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: small;
+}
+
+.errorLoading {
+  display: flex;
+  color: rgb(211, 23, 23);
+  flex-direction: column;
+  align-items: center;
+}

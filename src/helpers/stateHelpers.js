@@ -5,6 +5,7 @@ export default function useStateHelpers() {
   const apiKey = process.env.REACT_APP_API_KEY || "DEMO_KEY";
   const [photosOfTheDay, setPhotosOfTheDay] = useState([]);
   const [favs, setFavs] = useState(false);
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showTopBtn, setShowTopBtn] = useState(false);
   const [endDate, setEndDate] = useState(moment().format().slice(0, 10));
@@ -26,6 +27,7 @@ export default function useStateHelpers() {
     )
       .then((response) => {
         if (response.ok) {
+          setError(false)
           return response.json();
         } else {
           console.log(response);
@@ -49,7 +51,7 @@ export default function useStateHelpers() {
         console.log(photosOfTheDay)
       })
       .catch((err) => {
-        console.log(err);
+        setError(true)
       });
   };
 
@@ -61,6 +63,7 @@ export default function useStateHelpers() {
     fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${apiKey}`)
       .then((response) => {
         if (response.ok) {
+          setError(false)
           return response.json();
         } else {
           console.log(response);
@@ -77,13 +80,14 @@ export default function useStateHelpers() {
   const getFaves = () => {
     setPhotosOfTheDay([]);
     if (!favs) {
+      setLoading(true)
+      setFavs(!favs);
       setTimeout(() => {
-        setFavs(!favs);
         const local = { ...localStorage };
-        setPhotosOfTheDay([]);
         for (const [date, liked] of Object.entries(local)) {
           if (liked === "true") {
             fetchNasaFaves(date);
+            setLoading(false)
           }
         }
       }, 1500);
@@ -111,5 +115,6 @@ export default function useStateHelpers() {
     loading,
     showTopBtn,
     setShowTopBtn,
+    error
   };
 }

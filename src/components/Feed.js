@@ -3,6 +3,7 @@ import useStateHelpers from "../helpers/stateHelpers";
 import InfiniteScroll from "react-infinite-scroller";
 import PhotoBlock from "./PhotoBlock";
 import Navigation from "./Navigation";
+import Error from "./Error";
 import ScrollButton from "./ScrollButton";
 import { InfinitySpin } from "react-loader-spinner";
 import "./Feed.css";
@@ -13,6 +14,7 @@ export default function Feed() {
     favs,
     fetchMorePhotos,
     loading,
+    error,
   } = useStateHelpers();
 
   //add calander componenent
@@ -21,7 +23,8 @@ export default function Feed() {
     <>
       <ScrollButton />
       <Navigation getFaves={getFaves} favs={favs} />
-      {loading && <InfinitySpin color="red" />}
+      {!error && loading && <InfinitySpin color="red" />}
+      {error && <Error />}
       <div className="feed">
         {favs && (
           <div className="favFeed">
@@ -34,7 +37,7 @@ export default function Feed() {
               })}
           </div>
         )}
-        {!favs && (
+        {!error && !favs && (
           <InfiniteScroll
             className="scrollableFeed"
             pageStart={0}
