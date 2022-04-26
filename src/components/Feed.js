@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import useStateHelpers from "../helpers/stateHelpers";
 import InfiniteScroll from "react-infinite-scroller";
 import PhotoBlock from "./PhotoBlock";
@@ -15,7 +15,7 @@ export default function Feed() {
     loading,
   } = useStateHelpers();
 
-  //add calander componenent and toggle description up and down, loading
+  //add calander componenent and toggle description up and down
 
   return (
     <>

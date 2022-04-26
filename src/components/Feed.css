@@ -1,6 +1,5 @@
 .feed {
   display: flex;
-  align-items: center;
   flex-direction: column;
   overflow-y: scroll;
   height: 100%;

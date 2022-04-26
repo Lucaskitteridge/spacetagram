@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { FaAngleUp } from "react-icons/fa";
 import useStateHelpers from "../helpers/stateHelpers";
 import "./ScrollButton.css";

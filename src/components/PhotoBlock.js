@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Accordion } from "react-bootstrap";
 import "./PhotoBlock.css";
 
 export default function PhotoBlock({ photo, favs }) {
   const { url, title, date, explanation } = photo;
   const [selectedPhoto, setSelectedPhoto] = useState(photo);
   let likedInStorage = localStorage.getItem(selectedPhoto.date);
+  const [open, setOpen] = useState(false);
 
   //Uses likes in local storage to tell if the photo is previously liked
   useEffect(() => {
@@ -75,7 +76,19 @@ export default function PhotoBlock({ photo, favs }) {
           </div>
         </div>
         <div>
-          <div className="explanation">{explanation}</div>
+          <Accordion alwaysOpen="true">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header
+                className="toggleName"
+                onClick={() => setOpen(!open)}
+              >
+                {!open ? "View Description" : "Hide Description"}
+              </Accordion.Header>
+              <Accordion.Body className="explanation">
+                {explanation}
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
         </div>
       </div>
     </div>
