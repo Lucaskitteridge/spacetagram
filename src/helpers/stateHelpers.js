@@ -15,14 +15,14 @@ export default function useStateHelpers() {
   //Get request to fetch appointments for each day
   useEffect(() => {
     setTimeout(() => {
-      fetchNasaData(apiKey, startDate, endDate);
+      fetchNasaData(startDate, endDate);
     }, 1500);
   }, []);
 
   //Fetch data from Nasa Api
-  const fetchNasaData = (nasaKey, start, end) => {
+  const fetchNasaData = (start, end) => {
     fetch(
-      `https://api.nasa.gov/planetary/apod?start_date=${start}&end_date=${end}&api_key=${nasaKey}`
+      `https://api.nasa.gov/planetary/apod?start_date=${start}&end_date=${end}&api_key=${apiKey}`
     )
       .then((response) => {
         if (response.ok) {
@@ -46,6 +46,7 @@ export default function useStateHelpers() {
         setStartDate(newStart);
         setEndDate(newEnd);
         setLoading(false);
+        console.log(photosOfTheDay)
       })
       .catch((err) => {
         console.log(err);
@@ -53,11 +54,11 @@ export default function useStateHelpers() {
   };
 
   const fetchMorePhotos = () => {
-    fetchNasaData(apiKey, startDate, endDate);
+    fetchNasaData(startDate, endDate);
   };
 
-  const fetchNasaFaves = (nasaKey, date) => {
-    fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${nasaKey}`)
+  const fetchNasaFaves = (date) => {
+    fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${apiKey}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -82,7 +83,7 @@ export default function useStateHelpers() {
         setPhotosOfTheDay([]);
         for (const [date, liked] of Object.entries(local)) {
           if (liked === "true") {
-            fetchNasaFaves(apiKey, date);
+            fetchNasaFaves(date);
           }
         }
       }, 1500);
@@ -91,7 +92,7 @@ export default function useStateHelpers() {
       let newEnd = moment().format().slice(0, 10);
       setStartDate(newStart);
       setEndDate(newEnd);
-      fetchNasaData(apiKey, newStart, newEnd);
+      fetchNasaData(newStart, newEnd);
       setFavs(!favs);
     }
   };
@@ -106,6 +107,7 @@ export default function useStateHelpers() {
     setStartDate,
     getFaves,
     fetchMorePhotos,
+    fetchNasaData,
     loading,
     showTopBtn,
     setShowTopBtn,

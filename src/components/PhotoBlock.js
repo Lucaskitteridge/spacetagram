@@ -5,9 +5,9 @@ import "./PhotoBlock.css";
 export default function PhotoBlock({ photo, favs }) {
   const { url, title, date, explanation } = photo;
   const [selectedPhoto, setSelectedPhoto] = useState(photo);
-  let likedInStorage = localStorage.getItem(selectedPhoto.date);
   const [open, setOpen] = useState(false);
-
+  let likedInStorage = localStorage.getItem(selectedPhoto.date);
+  
   //Uses likes in local storage to tell if the photo is previously liked
   useEffect(() => {
     if (likedInStorage === "false") {

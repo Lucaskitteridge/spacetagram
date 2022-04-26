@@ -4,7 +4,6 @@ import InfiniteScroll from "react-infinite-scroller";
 import PhotoBlock from "./PhotoBlock";
 import Navigation from "./Navigation";
 import ScrollButton from "./ScrollButton";
-import CalanderButton from './CalanderButton'
 import { InfinitySpin } from "react-loader-spinner";
 import "./Feed.css";
 export default function Feed() {
@@ -21,7 +20,6 @@ export default function Feed() {
   return (
     <>
       <ScrollButton />
-      <CalanderButton />
       <Navigation getFaves={getFaves} favs={favs} />
       {loading && <InfinitySpin color="red" />}
       <div className="feed">

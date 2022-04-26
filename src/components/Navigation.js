@@ -6,7 +6,7 @@ export default function Navigation({ getFaves, favs }) {
   return (
     <Navbar sticky="top">
       <Container>
-        <Navbar.Brand className="appTitle">&#128640; Spacetagram</Navbar.Brand>
+        <Navbar.Brand className="appTitle">Spacetagram&#128640; </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Button variant="danger" onClick={getFaves}>
