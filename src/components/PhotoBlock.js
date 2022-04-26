@@ -54,41 +54,43 @@ export default function PhotoBlock({ photo, favs }) {
         <img src={url} alt={title} className="spacePhoto" />
       </div>
       <div className="descriptionText">
-        <div className="dateAndTitle">
+        <div className="innerContainer">
           <div className="dateAndTitle">
-            {title} - <div className="date">&nbsp;{date}</div>
-          </div>
-          <div className="likeButton">
-            <Button
-              className="outline"
-              variant="outline"
-              size="lg"
-              onClick={onLike}
-            >
-              {selectedPhoto.liked ? (
-                <span className="material-symbols-outlined clicked ">
-                  favorite
-                </span>
-              ) : (
-                <span className="material-symbols-outlined">favorite</span>
-              )}
-            </Button>
-          </div>
-        </div>
-        <div>
-          <Accordion alwaysOpen="true">
-            <Accordion.Item eventKey="0">
-              <Accordion.Header
-                className="toggleName"
-                onClick={() => setOpen(!open)}
+            <div className="dateAndTitle">
+              {title} - <div className="date">&nbsp;{date}</div>
+            </div>
+            <div className="likeButton">
+              <Button
+                className="outline"
+                variant="outline"
+                size="lg"
+                onClick={onLike}
               >
-                {!open ? "View Description" : "Hide Description"}
-              </Accordion.Header>
-              <Accordion.Body className="explanation">
-                {explanation}
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
+                {selectedPhoto.liked ? (
+                  <span className="material-symbols-outlined clicked ">
+                    favorite
+                  </span>
+                ) : (
+                  <span className="material-symbols-outlined">favorite</span>
+                )}
+              </Button>
+            </div>
+          </div>
+          <div>
+            <Accordion alwaysOpen="true">
+              <Accordion.Item eventKey="0">
+                <Accordion.Header
+                  className="toggleName"
+                  onClick={() => setOpen(!open)}
+                >
+                  {!open ? "View Description" : "Hide Description"}
+                </Accordion.Header>
+                <Accordion.Body className="explanation">
+                  {explanation}
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+          </div>
         </div>
       </div>
     </div>

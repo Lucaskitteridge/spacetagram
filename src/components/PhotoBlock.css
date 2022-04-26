@@ -19,6 +19,7 @@
   border-bottom-right-radius: 15px;
   padding: 1% 1.5% 1% 1.5%;
   background-color: rgb(231, 230, 230);
+  max-width: 60vw;
 }
 
 .dateAndTitle {
@@ -28,10 +29,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.toggleName {
-  font-family: "Space Grotesk", sans-serif;
 }
 
 .explanation {
@@ -90,5 +87,9 @@
 @media (max-width: 900px) {
   .spacePhoto {
     width: 95vw;
+  }
+
+  .descriptionText {
+    max-width: 100%;
   }
 }

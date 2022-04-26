@@ -24,7 +24,7 @@ export default function Feed() {
       {loading && <InfinitySpin color="red" />}
       <div className="feed">
         {favs && (
-          <div className="totalFeed">
+          <div className="favFeed">
             {photosOfTheDay
               .sort(function (a, b) {
                 return new Date(b.date) - new Date(a.date);

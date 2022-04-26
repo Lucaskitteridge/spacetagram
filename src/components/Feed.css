@@ -1,20 +1,22 @@
 .feed {
   display: flex;
+  align-items: center;
   flex-direction: column;
   overflow-y: scroll;
   height: 100%;
   width: 100%;
 }
 
-.totalFeed {
+.favFeed {
   width: 60%;
+  align-items: center;
 }
 
-.scrollableFeed {
+/* .scrollableFeed {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
 .titleBar {
   padding-top: 1vh;
@@ -47,6 +49,10 @@
   }
 
   .totalFeed {
+    width: 95vw;
+  }
+
+  .favFeed {
     width: 95vw;
   }
 }

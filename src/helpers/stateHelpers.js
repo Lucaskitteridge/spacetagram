@@ -75,7 +75,6 @@ export default function useStateHelpers() {
   //2 states, 1 setState, 1 callback
   const getFaves = () => {
     setPhotosOfTheDay([]);
-
     if (!favs) {
       setTimeout(() => {
         setFavs(!favs);
