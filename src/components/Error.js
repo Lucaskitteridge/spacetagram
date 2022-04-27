@@ -1,7 +1,7 @@
 import React from "react";
 import "./Error.css";
 
-export default function Error({error}) {
+export default function Error({ error }) {
   return (
     <div className="errorLoading">
       <div className="errorTitle">Error Loading Photos</div>

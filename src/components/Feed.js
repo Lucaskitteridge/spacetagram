@@ -17,8 +17,6 @@ export default function Feed() {
     error,
   } = useStateHelpers();
 
-  //add calander componenent
-
   return (
     <>
       <ScrollButton />
@@ -28,11 +26,6 @@ export default function Feed() {
       <div className="feed">
         {favs && (
           <div className="favFeed">
-            {photosOfTheDay.length === 0 && !loading && (
-              <Error
-                error={"No favourites. Please like photos before returning"}
-              />
-            )}
             {photosOfTheDay.length > 0 &&
               !error &&
               photosOfTheDay

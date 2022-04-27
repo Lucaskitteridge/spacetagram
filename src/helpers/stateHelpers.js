@@ -27,7 +27,7 @@ export default function useStateHelpers() {
     )
       .then((response) => {
         if (response.ok) {
-          setError(false)
+          setError(false);
           return response.json();
         } else {
           console.log(response);
@@ -50,7 +50,7 @@ export default function useStateHelpers() {
         setLoading(false);
       })
       .catch((err) => {
-        setError(`${err}`)
+        setError(`${err}`);
       });
   };
 
@@ -62,7 +62,6 @@ export default function useStateHelpers() {
     fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${apiKey}`)
       .then((response) => {
         if (response.ok) {
-          setError(false)
           return response.json();
         } else {
           console.log(response);
@@ -72,31 +71,38 @@ export default function useStateHelpers() {
         setPhotosOfTheDay((prev) => [...prev, data].flat());
       })
       .catch((err) => {
-        setError(err)
+        setError(err);
       });
   };
   //2 states, 1 setState, 1 callback
   const getFaves = () => {
     setPhotosOfTheDay([]);
+    setLoading(true);
     if (!favs) {
-      setLoading(true)
       setFavs(!favs);
+      const local = { ...localStorage };
       setTimeout(() => {
-        const local = { ...localStorage };
-        for (const [date, liked] of Object.entries(local)) {
-          if (liked === "true") {
-            fetchNasaFaves(date);
+        const checker = (arr) => arr.every((v) => v === "false");
+        if (checker(Object.values(local))) {
+          setError("No Liked Photos. Please like photos before returning");
+        } else {
+          for (const [date, liked] of Object.entries(local)) {
+            if (liked === "true") {
+              fetchNasaFaves(date);
+            }
           }
         }
-        setLoading(false)
+        setLoading(false);
       }, 1500);
     } else {
+      setLoading(false);
       let newStart = moment().subtract(5, "days").format().slice(0, 10);
       let newEnd = moment().format().slice(0, 10);
       setStartDate(newStart);
       setEndDate(newEnd);
       fetchNasaData(newStart, newEnd);
       setFavs(!favs);
+      setError(false);
     }
   };
 
@@ -114,6 +120,6 @@ export default function useStateHelpers() {
     loading,
     showTopBtn,
     setShowTopBtn,
-    error
+    error,
   };
 }
