@@ -48,7 +48,6 @@ export default function useStateHelpers() {
         setStartDate(newStart);
         setEndDate(newEnd);
         setLoading(false);
-        console.log(photosOfTheDay)
       })
       .catch((err) => {
         setError(`${err}`)
@@ -87,9 +86,9 @@ export default function useStateHelpers() {
         for (const [date, liked] of Object.entries(local)) {
           if (liked === "true") {
             fetchNasaFaves(date);
-            setLoading(false)
           }
         }
+        setLoading(false)
       }, 1500);
     } else {
       let newStart = moment().subtract(5, "days").format().slice(0, 10);
