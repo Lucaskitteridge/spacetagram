@@ -28,13 +28,14 @@ export default function Feed() {
       <div className="feed">
         {favs && (
           <div className="favFeed">
-            {photosOfTheDay
+            {photosOfTheDay.length > 0 ?
+            photosOfTheDay
               .sort(function (a, b) {
                 return new Date(b.date) - new Date(a.date);
               })
               .map((photo, index) => {
                 return <PhotoBlock photo={photo} key={index} />;
-              })}
+              }) : <Error error={"No selected Favourites, Please favourite photos before returning"}/>}
           </div>
         )}
         {!error && !favs && (
