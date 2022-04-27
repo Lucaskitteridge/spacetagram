@@ -51,7 +51,7 @@ export default function useStateHelpers() {
         console.log(photosOfTheDay)
       })
       .catch((err) => {
-        setError(true)
+        setError(`${err}`)
       });
   };
 

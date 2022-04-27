@@ -24,7 +24,7 @@ export default function Feed() {
       <ScrollButton />
       <Navigation getFaves={getFaves} favs={favs} />
       {!error && loading && <InfinitySpin color="red" />}
-      {error && <Error />}
+      {error && <Error error={error} />}
       <div className="feed">
         {favs && (
           <div className="favFeed">
