@@ -72,7 +72,7 @@ export default function useStateHelpers() {
         setPhotosOfTheDay((prev) => [...prev, data].flat());
       })
       .catch((err) => {
-        console.log(err);
+        setError(err)
       });
   };
   //2 states, 1 setState, 1 callback
